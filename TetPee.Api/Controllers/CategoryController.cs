@@ -18,50 +18,57 @@ public class CategoryController : ControllerBase
     
    
     [HttpGet(template:"")]
-    public IActionResult GetUsers([FromQuery] string? searchTerm)
+    public IActionResult GetCategory([FromQuery] string? searchTerm)
     {
         var users = _dbContext.Users.ToList();
         return Ok(users);
     }
-    
-    [HttpGet(template:"{id}")]
-    public IActionResult GetUsersByid(Guid id)
-    {
-        // var users = _dbContext.Users.ToList();
-        return Ok("Get all users");
-    }
-    
     [HttpPost(template:"")]
-    public IActionResult CreateUsers([FromBody] Request.CreateUserRequest request)
+    public IActionResult CreateCategory([FromBody] Request.CreateCategoryRequest request)
     {
         // var users = _dbContext.Users.ToList();
-        var user = new User()
+        var categories = new Category()
         {
-            Email = request.Email,
-            FirstName = request.Firstname,
-            LastName = request.Lastname,
-            HashedPassword = request.Password //chuaw hash, chir demo
+            Name =  request.Name
         };
         
-        _dbContext.Users.Add(user);
+        _dbContext.Categories.Add(categories);
         
         _dbContext.SaveChanges();
         
         Console.WriteLine(request);
-        return Ok("Get all users");
+        return Ok("Create category success");
     }
     
     [HttpPut(template:"{id}")]
-    public IActionResult UpdateUser(Guid id,  [FromBody] Request.UpdateUserRequest request)
+    public IActionResult UpdateCategory(Guid id,  [FromBody] Request.UpdateCategoryRequest request)
     {
         // var users = _dbContext.Users.ToList();
-        return Ok("Create user");
+        var cate = _dbContext.Categories.Find(id);
+        if (cate == null)
+        {
+            Ok("No user found");
+        }
+        else
+        {
+            cate.Name = request.Name;
+        }
+        return Ok("Update successful");
     }
     
     [HttpDelete(template:"{id}")]
     public IActionResult DeleteUser(Guid id)
     {
         // var users = _dbContext.Users.ToList();
+        var cate = _dbContext.Categories.Find(id);
+        if (cate == null)
+        {
+            Ok("No user found");
+        }
+        else
+        {
+            cate.IsDeleted = true;
+        }         
         return Ok("Delete user");
     }
 }

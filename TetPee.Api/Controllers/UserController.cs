@@ -43,6 +43,7 @@ public class UserController : ControllerBase
     public IActionResult GetUsers([FromQuery] string? searchTerm)
     {
         var users = _dbContext.Users.ToList();
+        throw new Exception("Get all users Errors");
         return Ok(users);
     }
     
@@ -77,13 +78,34 @@ public class UserController : ControllerBase
     public IActionResult UpdateUser(Guid id,  [FromBody] Request.UpdateUserRequest request)
     {
         // var users = _dbContext.Users.ToList();
-        return Ok("Create user");
+        var user = _dbContext.Users.Find(id);
+        if (user == null)
+        {
+            Ok("No user found");
+        }
+        else
+        {
+            user.Email = request.Email;
+            user.FirstName = request.Firstname;
+            user.LastName = request.Lastname;
+            user.HashedPassword = request.Password;
+        }
+        return Ok("Update successful");
     }
     
     [HttpDelete(template:"{id}")]
     public IActionResult DeleteUser(Guid id)
     {
         // var users = _dbContext.Users.ToList();
+        var user = _dbContext.Users.Find(id);
+        if (user == null)
+        {
+            Ok("No user found");
+        }
+        else
+        {
+            user.IsDeleted = true;
+        }            
         return Ok("Delete user");
     }
 }

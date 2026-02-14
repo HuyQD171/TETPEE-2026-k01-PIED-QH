@@ -6,7 +6,7 @@ public class Seller: BaseEntity<Guid>, IAuditableEntity
 {   
     public string TaxCode { get; set; }
     public string CompanyName { get; set; }
-    public string CampanyAddress { get; set; }
+    public string CompanyAddress { get; set; }
     
     //tạo FK
     public Guid UserId { get; set; } // FK

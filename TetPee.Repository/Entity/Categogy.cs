@@ -17,7 +17,7 @@ public class Category: BaseEntity<Guid>, IAuditableEntity
     
     public ICollection<Category>  Children { get; set; } = new List<Category>();
     //những category có parentId
-    public ICollection<ProductCategory>  ProductCategories { get; set; } = new List<ProductCategory>();
+    public ICollection<ProductCategory>  ProductCategory { get; set; } = new List<ProductCategory>();
     
     //Ý nghĩa của đệ quy
     //Category chứa children
