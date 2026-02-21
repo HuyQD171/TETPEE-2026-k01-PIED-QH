@@ -299,6 +299,7 @@ public class AppDbContext : DbContext//là một ..., đại diện cho db
             builder.Property(o => o.Id)
                 .IsRequired()
                 .HasMaxLength(100);
+                
             var orders = new List<Order>()
             {
                 new Order()
