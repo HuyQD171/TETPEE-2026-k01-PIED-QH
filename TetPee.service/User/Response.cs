@@ -1,4 +1,4 @@
-namespace TetPee.Service.User;
+namespace TetPee.service.User;
 
 public class Response
 {
@@ -13,6 +13,6 @@ public class Response
         public string? PhoneNumber { get; set; } = null;
         public string Role { get; set; } = "User";
         // public string? DateOfBirth { get; set; } = null;
-        
     }
+    
 }

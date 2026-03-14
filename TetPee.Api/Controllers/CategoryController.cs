@@ -1,29 +1,38 @@
 using Microsoft.AspNetCore.Mvc;
 using TetPee.Repository;
-using TetPee.Repository.Entity;
-using TetPee.service.User;
+using TetPee.service.Categogy;
+
 
 namespace TetPee.Api.Controllers;
 
-[ApiController]
-[Route("[controller]")]
+
 public class CategoryController : ControllerBase
 {
     private readonly AppDbContext _dbContext;
+    private readonly IService _categoryService;
+
+
     //cái này nâng cao lúc sau sẽ giải thích
-    public CategoryController(AppDbContext dbContext)
+    public CategoryController(AppDbContext dbContext,  IService cateService)
     {
         _dbContext = dbContext;
+        _categoryService = cateService;
     }
     
    
-    [HttpGet(template:"")]
-    public IActionResult GetCategory([FromQuery] string? searchTerm)
+    [HttpGet("")]
+    public async Task<IActionResult> GetAllCategory([FromQuery] string? searchTerm)
     {
-        var users = _dbContext.Users.ToList();
-        return Ok(users);
+        var results = await _categoryService.GetCategories();
+        return Ok(results);
     }
-    [HttpPost(template:"")]
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetAllChildrenCategory([FromRoute] Guid id)
+    {
+        var results = await _categoryService.GetAllChildrenCategory(id);
+        return Ok(results);
+    }
+    /*[HttpPost("")]
     public IActionResult CreateCategory([FromBody] Request.CreateCategoryRequest request)
     {
         // var users = _dbContext.Users.ToList();
@@ -38,9 +47,9 @@ public class CategoryController : ControllerBase
         
         Console.WriteLine(request);
         return Ok("Create category success");
-    }
+    }*/
     
-    [HttpPut(template:"{id}")]
+    /*[HttpPut("{id}")]
     public IActionResult UpdateCategory(Guid id,  [FromBody] Request.UpdateCategoryRequest request)
     {
         // var users = _dbContext.Users.ToList();
@@ -56,7 +65,7 @@ public class CategoryController : ControllerBase
         return Ok("Update successful");
     }
     
-    [HttpDelete(template:"{id}")]
+    [HttpDelete("{id}")]
     public IActionResult DeleteUser(Guid id)
     {
         // var users = _dbContext.Users.ToList();
@@ -70,5 +79,5 @@ public class CategoryController : ControllerBase
             cate.IsDeleted = true;
         }         
         return Ok("Delete user");
-    }
+    }*/
 }

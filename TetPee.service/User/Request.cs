@@ -13,14 +13,5 @@ public class Request
     {
         public Guid Id { get; set; }
     }
-    
-    public class CreateCategoryRequest
-    {
-        public required string Name { get; set; }
-    }
-    
-    public class UpdateCategoryRequest: CreateCategoryRequest
-    {
-        public Guid Id { get; set; }
-    }
+
 }

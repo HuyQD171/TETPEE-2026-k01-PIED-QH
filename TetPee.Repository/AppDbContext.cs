@@ -118,7 +118,7 @@ public class AppDbContext : DbContext //là một ..., đại diện cho db
                     HashedPassword = "hashed_password_1",
                 }
             };
-            for (int i = 0; i <= 20; i++)
+            for (int i = 0; i <= 50; i++)
             {
                 var newUsers = new User()
                 {
@@ -220,7 +220,7 @@ public class AppDbContext : DbContext //là một ..., đại diện cho db
                     ParentId = CateGoryParentId2
                 },
             };
-            for (int i = 0; i <= 10; i++)
+            for (int i = 0; i <= 50; i++)
             {
                 if (i % 2 == 0)
                 {
@@ -311,7 +311,7 @@ public class AppDbContext : DbContext //là một ..., đại diện cho db
 
             };
 
-            for (int i = 0; i <= 10; i++)
+            for (int i = 0; i <= 50; i++)
             {
                 var newProduct = new Product()
                 {
@@ -456,7 +456,7 @@ public class AppDbContext : DbContext //là một ..., đại diện cho db
                 .IsRequired()
                 .HasMaxLength(100);
             List<Storage> storage = new List<Storage>();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 50; i++)
             {
                 var typeSto = "Import";
                 if (i % 5 == 0)
@@ -480,7 +480,7 @@ public class AppDbContext : DbContext //là một ..., đại diện cho db
                     .IsRequired()
                     .HasMaxLength(100);
                 List<ProductStorage> productStorages = new List<ProductStorage>();
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 50; i++)
                 {
                     var newProStorage = new ProductStorage()
                     {
@@ -498,7 +498,7 @@ public class AppDbContext : DbContext //là một ..., đại diện cho db
                 .IsRequired()
                 .HasMaxLength(100);
             List<ProductCategory> productCategory = new List<ProductCategory>();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 50; i++)
             {
                 var newProCategory = new ProductCategory()
                 {
