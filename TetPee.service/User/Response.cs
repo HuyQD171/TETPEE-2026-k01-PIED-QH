@@ -15,4 +15,14 @@ public class Response
         // public string? DateOfBirth { get; set; } = null;
     }
     
+    public class GetAllUserResponse
+    {
+        
+        public string FirstName { get; set; } = null;
+        public string LastName { get; set; } = null;
+        public string? ImageUrl { get; set; } = null;
+
+        // public string? DateOfBirth { get; set; } = null;
+    }
+    
 }

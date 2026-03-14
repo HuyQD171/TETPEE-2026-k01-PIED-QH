@@ -24,6 +24,11 @@ public class SellerController : ControllerBase
     public async Task<IActionResult> GetAllSeller([FromQuery] string? searchTerm, int pageSize = 10, int pageIndex = 1)
     {
         var results = await _sellerService.GetAllSeller(searchTerm, pageSize, pageIndex);
-        return Ok("results");
+        return Ok(results);
     }
+    /*public async Task<IActionResult> GetAllSellerById([FromQuery] string? searchTerm, int pageSize = 10, int pageIndex = 1)
+    {
+        var results = await _sellerService.GetAllSeller(searchTerm, pageSize, pageIndex);
+        return Ok(results);
+    }*/
 }

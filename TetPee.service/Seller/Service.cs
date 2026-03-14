@@ -19,36 +19,41 @@ public class Service : IService
         int pageSize = 10,
         int pageIndex = 1)
     {
-        IQueryable<Repository.Entity.Seller> query = _dbContext.Sellers.Include(x => x.User);
+            var query = _dbContext.Sellers.Where(x => true);
 
-        query = query.OrderBy(x => x.User.FirstName);
+            query = query.OrderBy(x => x.User.FirstName);
         
-        query = query
-            .Skip((pageIndex - 1) * pageSize)
-            .Take(pageSize);
+            query = query
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize);
 
-        var selectedQuery = query
-            .Select(x => new Response.GetSellerResponse()
+            var selectedQuery = query
+                .Select(x => new Response.GetSellerResponse()
+                {
+                    Email = x.User.Email,
+                    FirstName = x.User.FirstName,
+                    LastName = x.User.LastName,
+                    ImageUrl = x.User.ImageUrl,
+                    TaxCode =  x.TaxCode,
+                    CompanyName = x.CompanyName
+                });
+
+
+            var listResult = await selectedQuery.ToListAsync();
+            var totalItems = listResult.Count();
+
+            var result = new Base.Response.PageResult<Response.GetSellerResponse>()
             {
-                Email = x.User.Email,
-                FirstName = x.User.FirstName,
-                LastName = x.User.LastName,
-                ImageUrl = x.User.ImageUrl,
-                TaxCode =  x.TaxCode,
-                CompanyName = x.CompanyName
-            });
+                Items = listResult,
+                PageIndex = pageIndex,
+                PageSize = pageSize,
+                TotalItems = totalItems,
+            };
+            return result;
+        }
 
-
-        var listResult = await selectedQuery.ToListAsync();
-        var totalItems = listResult.Count();
-
-        var result = new service.Base.Response.PageResult<Response.GetSellerResponse>()
-        {
-            Items = listResult,
-            PageIndex = pageIndex,
-            PageSize = pageSize,
-            TotalItems = totalItems,
-        };
-        return result;
+    public Task<Base.Response.PageResult<Response.GetSellerResponse>> GetSellerById(Guid id)
+    {
+        throw new NotImplementedException();
     }
 }

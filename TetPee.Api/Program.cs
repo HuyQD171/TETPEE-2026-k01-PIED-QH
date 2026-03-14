@@ -15,6 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<TetPee.service.Identity.IService, TetPee.service.Identity.Service>();
 builder.Services.AddScoped<TetPee.service.Seller.IService, TetPee.service.Seller.Service>();
 builder.Services.AddScoped<TetPee.service.Categogy.IService, TetPee.service.Categogy.Service>();
 builder.Services.AddScoped<IService, Service>();

@@ -2,14 +2,16 @@ namespace TetPee.service.Seller;
 
 public class Response
 {
-    public class GetSellerResponse
+    public class GetSellerResponse : User.Response.GetUsersResponse
     {
-        public string Email { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string ImageUrl { get; set; }
         
-        public string TaxCode { get; set; }
-        public string CompanyName { get; set; }
+        
+        public string? TaxCode { get; set; }
+        public string? CompanyName { get; set; }
+    }
+    
+    public class GetAllSellerResponse : User.Response.GetAllUserResponse
+    {
+        
     }
 }

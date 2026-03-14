@@ -6,6 +6,8 @@ using TetPee.service.Categogy;
 namespace TetPee.Api.Controllers;
 
 
+[ApiController]
+[Route("[controller]")]
 public class CategoryController : ControllerBase
 {
     private readonly AppDbContext _dbContext;
@@ -26,10 +28,10 @@ public class CategoryController : ControllerBase
         var results = await _categoryService.GetCategories();
         return Ok(results);
     }
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetAllChildrenCategory([FromRoute] Guid id)
+    [HttpGet("{parentTd}")]
+    public async Task<IActionResult> GetAllChildrenCategory([FromRoute] Guid parentTd)
     {
-        var results = await _categoryService.GetAllChildrenCategory(id);
+        var results = await _categoryService.GetAllChildrenCategory(parentTd);
         return Ok(results);
     }
     /*[HttpPost("")]
