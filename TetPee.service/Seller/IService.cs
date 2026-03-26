@@ -1,11 +1,16 @@
+using System;
+using System.Threading.Tasks;
+
 namespace TetPee.service.Seller;
 
 public interface IService
 {
     public Task<Base.Response.PageResult<Response.GetSellerResponse>> GetAllSeller(
         string? searchTerm,
-        int pageSize = 10,
-        int pageIndex = 1);
+        int pageSize,
+        int pageIndex);
     
-    public Task<Base.Response.PageResult<Response.GetSellerResponse>> GetSellerById(Guid id);
-}
+    public Task<Response.GetSellerByIdResponse> GetSellerById(Guid id);
+
+    public Task<string> CreateSeller(Request.CreateSellerRequest request);
+} 

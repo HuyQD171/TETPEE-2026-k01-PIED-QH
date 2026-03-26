@@ -1,4 +1,7 @@
-using TetPee.Repository.Entity;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
 
 namespace TetPee.service.Categogy;
 

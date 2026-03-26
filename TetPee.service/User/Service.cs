@@ -12,7 +12,7 @@ public class Service : IService
         _dbContext = dbContext;
     }
 
-    public async Task<service.Base.Response.PageResult<Response.GetUsersResponse>> GetUsers(
+    public async Task<Base.Response.PageResult<Response.GetUsersResponse>> GetUsers(
         string? searchTerm,
         int pageSize,
         int pageIndex)
@@ -50,7 +50,7 @@ public class Service : IService
         var listResult = await selectedQuery.ToListAsync();
         var totalItems = listResult.Count();
 
-        var result = new service.Base.Response.PageResult<Response.GetUsersResponse>()
+        var result = new Base.Response.PageResult<Response.GetUsersResponse>()
         {
             Items = listResult,
             PageIndex = pageIndex,

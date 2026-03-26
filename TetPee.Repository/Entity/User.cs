@@ -19,9 +19,10 @@ public class User: BaseEntity<Guid>, IAuditableEntity
     // Hangfire 
     // Quartz
     // Cron job
+    
     public Seller? Seller { get; set; }
     public ICollection<Order>  Orders { get; set; } = new List<Order>();
-    //mối qh một nhiều cho ORM nó generate xuống db
+    //mối qh một nhiều cho ORM nó generate xuống    db
     
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset? UpdatedAt { get; set; }//nullable vì chưa update lần nào

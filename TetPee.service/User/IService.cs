@@ -1,3 +1,4 @@
+
 namespace TetPee.service.User;
 
 public interface IService

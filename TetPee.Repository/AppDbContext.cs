@@ -41,10 +41,10 @@ public class AppDbContext : DbContext //là một ..., đại diện cho db
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
     var listUsersId = new List<Guid>();
-    var ListSellersId = new List<Guid>();
-    var ListProductsId = new List<Guid>();
-    var ListStoragesId = new List<Guid>();
-    var ListCategoriesId = new List<Guid>();
+    var listSellersId = new List<Guid>();
+    var listProductsId = new List<Guid>();
+    var listStoragesId = new List<Guid>();
+    var listCategoriesId = new List<Guid>();
     /*var ListProducts = new List<Product>();
     var ListOrders = new List<Order>();
     var ListOrderDetail = new List<OrderDetail>();*/
@@ -86,10 +86,10 @@ public class AppDbContext : DbContext //là một ..., đại diện cho db
                 .HasDefaultValue("User");
 
             // Relationship: User has one Seller (one-to-one)
-            builder.HasOne(u => u.Seller)
-                .WithOne(s => s.User)
-                .HasForeignKey<Seller>(s => s.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+                builder.HasOne(u => u.Seller)
+                    .WithOne(s => s.User)
+                    .HasForeignKey<Seller>(s => s.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
             // DeleteBehavior.Cascade: Khi một User bị xóa, thì Seller liên quan cũng sẽ bị xóa theo.
             // DeleteBehavior.Restrict: Ngăn chặn việc xóa một User nếu có Seller liên quan tồn tại.
@@ -126,7 +126,7 @@ public class AppDbContext : DbContext //là một ..., đại diện cho db
                     Email = i + "tan182205@gmail.com",
                     FirstName = "Tan" + i,
                     LastName = "Tran" + i,
-                    HashedPassword = "hashed_password_1"
+                    HashedPassword = "hashed_password_" + i,
 
                 };
                 listUsersId.Add(newUsers.Id);
@@ -171,7 +171,7 @@ public class AppDbContext : DbContext //là một ..., đại diện cho db
                     CompanyAddress = i + " Main St, Cityville",
                     UserId = listUsersId[i],
                 };
-                ListSellersId.Add(newSeller.Id);
+                listSellersId.Add(newSeller.Id);
                 seller.Add(newSeller);
             }
 
@@ -230,7 +230,7 @@ public class AppDbContext : DbContext //là một ..., đại diện cho db
                         Name = "Áo ba lỗ mã" + i,
                         ParentId = CateGoryParentId1
                     };
-                    ListCategoriesId.Add(category.Id);
+                    listCategoriesId.Add(category.Id);
                     categories.Add(category);
                 }
                 else
@@ -241,7 +241,7 @@ public class AppDbContext : DbContext //là một ..., đại diện cho db
                         Name = "Quần Jean mã " + i,
                         ParentId = CateGoryParentId2
                     };
-                    ListCategoriesId.Add(category.Id);
+                    listCategoriesId.Add(category.Id);
                     categories.Add(category);
                 }
 
@@ -321,9 +321,9 @@ public class AppDbContext : DbContext //là một ..., đại diện cho db
                         "Áo thun nam chất liệu cotton cao cấp, thoáng mát, phù hợp cho mọi hoạt động hàng ngày."+ i,
                     UrlImage = "https://example.com/images" + i + "/ao_thun_nam.jpg",
                     Price = i * 99000m,
-                    SellerId = ListSellersId[0],
+                    SellerId = listSellersId[0],
                 };
-                ListProductsId.Add(newProduct.Id);
+                listProductsId.Add(newProduct.Id);
                 products.Add(newProduct);
             }
 
@@ -435,13 +435,13 @@ public class AppDbContext : DbContext //là một ..., đại diện cho db
                 },
 
             };
-            for (int i = 0; i < ListProductsId.Count - 1; i++)
+            for (int i = 0; i < listProductsId.Count - 1; i++)
             {
                 var newOrderDetail = new OrderDetail()
                 {
                     Id = Guid.NewGuid(),
                     OrderID = OrderId1,
-                    ProductID = ListProductsId[i],
+                    ProductID = listProductsId[i],
                     Quantity = i,
                     UnitPrice = i * 99000m,
                 };
@@ -469,7 +469,7 @@ public class AppDbContext : DbContext //là một ..., đại diện cho db
                     Price = i * 98000m,
                     Type = typeSto
                 };
-                ListStoragesId.Add(newStorage.Id);
+                listStoragesId.Add(newStorage.Id);
                 storage.Add(newStorage);
             }
             builder.HasData(storage);
@@ -485,8 +485,8 @@ public class AppDbContext : DbContext //là một ..., đại diện cho db
                     var newProStorage = new ProductStorage()
                     {
                         Id = Guid.NewGuid(),
-                        ProductId = ListProductsId[i],
-                        StorageId = ListStoragesId[i],
+                        ProductId = listProductsId[i],
+                        StorageId = listStoragesId[i],
                     };
                     productStorages.Add(newProStorage);
                 }
@@ -503,8 +503,8 @@ public class AppDbContext : DbContext //là một ..., đại diện cho db
                 var newProCategory = new ProductCategory()
                 {
                     Id = Guid.NewGuid(),
-                    CategoryId = ListCategoriesId[i],
-                    ProductID = ListProductsId[i],
+                    CategoryId = listCategoriesId[i],
+                    ProductID = listProductsId[i],
                 };
                 productCategory.Add(newProCategory);
             }
@@ -513,12 +513,12 @@ public class AppDbContext : DbContext //là một ..., đại diện cho db
         modelBuilder.Entity<Inventory>(builder =>
         {
             List<Inventory> inventories = new List<Inventory>();
-            for (int i = 0; i < ListProductsId.Count - 1; i++)
+            for (int i = 0; i < listProductsId.Count - 1; i++)
             {
                 var newInvent = new Inventory()
                 {
                     Id = Guid.NewGuid(),
-                    ProductId = ListProductsId[i],
+                    ProductId = listProductsId[i],
                     TotalInStock = i * 54,
                     TotalSell = 1 + i * 23,
                 };

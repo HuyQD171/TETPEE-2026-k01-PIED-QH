@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TetPee.Repository;
 using TetPee.Repository.Entity;
@@ -72,7 +73,6 @@ public class UserController: ControllerBase//nơi khai báo các endpoint(URL + 
     //delete user by id: DELETE http://localhost:5000/User/{id}
     
     // update user by id: http://localhost:5000/User/id/update - sai
-    
     [HttpGet("")] // bỏ trong dấu "" - thì nó sẽ map tới đó
     //Attribute - Attribute là một “metadata” gắn lên method để nói với ASP.NET biết:
         //Method này xử lý HTTP GET request.

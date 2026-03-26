@@ -7,7 +7,8 @@ public class Product: BaseEntity<Guid>, IAuditableEntity
 {
     public required string Name { get; set; }
     public required string Description { get; set; }
-    public string UrlImage { get; set; }
+
+    public string UrlImage { get; set; } = string.Empty;
     public decimal Price { get; set; }
     
     public Guid SellerId { get; set; } // FK
@@ -24,4 +25,4 @@ public class Product: BaseEntity<Guid>, IAuditableEntity
     
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset? UpdatedAt { get; set; }
-}
+}   

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TetPee.Repository;
 using TetPee.service.Categogy;
@@ -21,14 +22,15 @@ public class CategoryController : ControllerBase
         _categoryService = cateService;
     }
     
-   
+       
+    [Authorize]
     [HttpGet("")]
     public async Task<IActionResult> GetAllCategory([FromQuery] string? searchTerm)
     {
         var results = await _categoryService.GetCategories();
         return Ok(results);
     }
-    [HttpGet("{parentTd}")]
+    [HttpGet("{parentTd}/children")]
     public async Task<IActionResult> GetAllChildrenCategory([FromRoute] Guid parentTd)
     {
         var results = await _categoryService.GetAllChildrenCategory(parentTd);
