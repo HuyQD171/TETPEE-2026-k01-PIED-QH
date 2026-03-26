@@ -2,7 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using TetPee.Api.Extensions;
 using TetPee.Api.Middlewares;
 using TetPee.Repository;
-
+using TetPee.service.CloudinaryService;
+using TetPee.service.MediaService;
 using ProductService = TetPee.service.Product;
 using JwtService = TetPee.service.JwtService;
 using IdentityService = TetPee.service.Identity;
@@ -28,6 +29,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddJwtServices(builder.Configuration);
 builder.Services.AddSwaggerServices();
 
+builder.Services.AddScoped<IService, Service>();
 builder.Services.AddScoped<ProductService.IService, ProductService.Service>();
 builder.Services.AddScoped<IdentityService.IService, IdentityService.Service>();
 builder.Services.AddScoped<SellerService.IService, SellerService.Service>();

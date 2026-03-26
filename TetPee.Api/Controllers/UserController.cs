@@ -16,18 +16,18 @@ public class UserController: ControllerBase//nơi khai báo các endpoint(URL + 
     //cung cấp sẵn cho mình các response chuẩn
 {
     private readonly AppDbContext _dbContext;
-
+    private readonly service.MediaService.IService _mediaService;
     private readonly IService _userService;
     //cái này tìm hiểu sau
     //công cụ để nói chuyện với db
     //readonly: chỉ gán một lần, không đổi lung tung
-    public UserController(AppDbContext dbContext, IService userService)
+    public UserController(AppDbContext dbContext, service.MediaService.IService mediaService, IService userService)
     {
         _dbContext = dbContext;
+        _mediaService = mediaService;
         _userService = userService;
-
     }
-    
+
     // HTTP Method: GET, POST, DELETE, PUT, PATCH - nói với server: tôi muốn làm gì?
     // PARAM: Query string, Path Param, Body Param - dữ liệu gửi kèm theo request
     
@@ -93,7 +93,7 @@ public class UserController: ControllerBase//nơi khai báo các endpoint(URL + 
     }
     
     [HttpPost("")]
-    public IActionResult CreateUsers([FromBody] Request.CreateUserRequest request)// dòng này có nghĩa là sao
+    public async Task<IActionResult> CreateUsers([FromForm] Request.CreateUserRequest request)// dòng này có nghĩa là sao
     //post này tui yêu cầu bạn truyền những cái sau cho tôi
     //tại mày sài cái API này phải tryền cho t cái object
 
@@ -105,11 +105,16 @@ public class UserController: ControllerBase//nơi khai báo các endpoint(URL + 
             LastName = request.Lastname,
             HashedPassword = request.Password
         };
+
+        if (request.Avatar != null)
+        {
+            var media = await _mediaService.UploadImageAsync(request.Avatar);
+            user.ImageUrl = media;
+        }
         
         _dbContext.Users.Add(user);// add thằng user vừa mới tạo vào bẳng User nha
-        _dbContext.SaveChanges(); // hoàn tất nếu có dòng này, lưu thay đổi
-         
-        Console.WriteLine(request);
+        await _dbContext.SaveChangesAsync(); // hoàn tất nếu có dòng này, lưu thay đổi
+        
         return Ok("Get all users");
     }
     
