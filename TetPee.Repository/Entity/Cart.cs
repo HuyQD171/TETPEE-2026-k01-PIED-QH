@@ -1,3 +1,4 @@
+using System;
 using TetPee.Repository.Abtraction;
 
 namespace TetPee.Repository.Entity;

@@ -2,20 +2,22 @@ using Microsoft.EntityFrameworkCore;
 using TetPee.Api.Extensions;
 using TetPee.Api.Middlewares;
 using TetPee.Repository;
-using TetPee.service.CloudinaryService;
-using TetPee.service.MediaService;
+using CloudinaryService = TetPee.service.CloudinaryService;
+using MediaService = TetPee.service.MediaService;
 using ProductService = TetPee.service.Product;
 using JwtService = TetPee.service.JwtService;
 using IdentityService = TetPee.service.Identity;
 using SellerService = TetPee.service.Seller;
 using CategoryService = TetPee.service.Categogy;
 using UserService = TetPee.service.User;
+using MailService = TetPee.service.MailService;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddHttpContextAccessor();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -29,7 +31,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddJwtServices(builder.Configuration);
 builder.Services.AddSwaggerServices();
 
-builder.Services.AddScoped<IService, Service>();
+builder.Services.AddScoped<MailService.IService, MailService.Service>();
+builder.Services.AddScoped<MediaService.IService, CloudinaryService.Service>();
 builder.Services.AddScoped<ProductService.IService, ProductService.Service>();
 builder.Services.AddScoped<IdentityService.IService, IdentityService.Service>();
 builder.Services.AddScoped<SellerService.IService, SellerService.Service>();

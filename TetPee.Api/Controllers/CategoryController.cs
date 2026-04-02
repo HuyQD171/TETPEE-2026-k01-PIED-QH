@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TetPee.Repository;
 using TetPee.service.Categogy;
+using TetPee.service.Models;
 
 
 namespace TetPee.Api.Controllers;
@@ -23,18 +24,18 @@ public class CategoryController : ControllerBase
     }
     
        
-    [Authorize]
+    /*[Authorize]*/
     [HttpGet("")]
     public async Task<IActionResult> GetAllCategory([FromQuery] string? searchTerm)
     {
         var results = await _categoryService.GetCategories();
-        return Ok(results);
+        return Ok(ApiResponseFactory.SuccessResonse(results, "Categories retrieved", HttpContext.TraceIdentifier));
     }
     [HttpGet("{parentTd}/children")]
     public async Task<IActionResult> GetAllChildrenCategory([FromRoute] Guid parentTd)
     {
         var results = await _categoryService.GetAllChildrenCategory(parentTd);
-        return Ok(results);
+        return Ok(ApiResponseFactory.SuccessResonse(results, "Child Categories retrieved", HttpContext.TraceIdentifier));
     }
     /*[HttpPost("")]
     public IActionResult CreateCategory([FromBody] Request.CreateCategoryRequest request)

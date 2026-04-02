@@ -25,7 +25,7 @@ public class Service : IService
         });
         
         var result = await selectQuery.ToListAsync();
-
+        
         return result;
     }
 

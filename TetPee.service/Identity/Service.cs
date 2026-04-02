@@ -24,6 +24,7 @@ public class Service : IService
     public async Task<Response.IdentityResponse> Login(string email, string password)
     {
         var user = await _dbContext.Users
+            .Include(x => x.Seller)    
             .FirstOrDefaultAsync(u => u.Email == email);
 
         if (user == null)
@@ -47,7 +48,18 @@ public class Service : IService
             // Phải có claim này để phân quyền cho các API endpoint, nếu thiếu claim này thì sẽ không phân quyền được
             new Claim(ClaimTypes.Expired, 
                 DateTimeOffset.UtcNow.AddMinutes(_jwtOption.ExpireMinutes).ToString()),
-        };          
+        };
+
+        if (user.Role == "Seller")
+        {
+            /*var seller = await _dbContext.Sellers.FirstOrDefaultAsync(u => u.UserId == user.Id);
+            if (seller != null)
+            {
+                claims.Add(new Claim("SellerId", seller.Id.ToString()));
+            }*/
+            claims.Add(new Claim("SellerId", user.Seller!.Id.ToString()));
+
+        }
         
         var token = _jwtService.GenerateAccessToken(claims);
         

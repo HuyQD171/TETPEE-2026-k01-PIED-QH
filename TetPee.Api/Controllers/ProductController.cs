@@ -20,12 +20,10 @@ public class ProductController : ControllerBase
         _productService = productService;
     }
 
-    /*
     [Authorize(Policy = JwtExtensions.SellerPolicy)]
-    */
     [HttpPost("")]
-    public async Task<IActionResult> CreateSeller(Request.CreateProductRequest request)
-    {
+    public async Task<IActionResult> Product(Request.CreateProductRequest request)
+    {   
             var result = await _productService.CreateProduct(request);
             return Ok(result);
     }
