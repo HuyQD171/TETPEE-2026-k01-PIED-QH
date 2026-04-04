@@ -5,10 +5,11 @@ namespace TetPee.Repository.Entity;
 
 public class Cart: BaseEntity<Guid>, IAuditableEntity
 {
-    
-    
+    //tại sao xóa id vì clas cha base enitty dã có rồi
     public Guid UserId { get; set; } 
     public User User { get; set; }
+    
+    public ICollection<CartDetail> CartDetails { get; set; } = new List<CartDetail>();
     
     public DateTimeOffset CreatedAt { get; set; } 
     public DateTimeOffset? UpdatedAt { get; set; } 

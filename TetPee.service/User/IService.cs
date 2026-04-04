@@ -1,4 +1,7 @@
 
+using System;
+using System.Threading.Tasks;
+
 namespace TetPee.service.User;
 
 public interface IService

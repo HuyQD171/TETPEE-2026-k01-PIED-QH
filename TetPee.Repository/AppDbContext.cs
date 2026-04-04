@@ -39,6 +39,8 @@ public class AppDbContext : DbContext //là một ..., đại diện cho db
     public DbSet<OrderDetail> OrderDetails { get; set; }
     public DbSet<ProductCategory> ProductCategories { get; set; }
     public DbSet<Category> Categories { get; set; }
+    public DbSet<CartDetail> CartDetails { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -91,6 +93,11 @@ public class AppDbContext : DbContext //là một ..., đại diện cho db
                 builder.HasOne(u => u.Seller)
                     .WithOne(s => s.User)
                     .HasForeignKey<Seller>(s => s.UserId)
+                    .OnDelete(DeleteBehavior.Cascade);
+                
+                builder.HasOne(u => u.Cart)
+                    .WithOne(s => s.User)
+                    .HasForeignKey<Cart>(s => s.UserId)
                     .OnDelete(DeleteBehavior.Cascade);
 
             // DeleteBehavior.Cascade: Khi một User bị xóa, thì Seller liên quan cũng sẽ bị xóa theo.
@@ -533,7 +540,7 @@ public class AppDbContext : DbContext //là một ..., đại diện cho db
             builder.Property(p => p.Id)
                 .IsRequired()
                 .HasMaxLength(100);
-            List<Cart> carts = new List<Cart>();
+            /*List<Cart> carts = new List<Cart>();
             for (int i = 0; i < listUsersId.Count - 1; i++)
             {
                 var newCart = new Cart()
@@ -543,7 +550,7 @@ public class AppDbContext : DbContext //là một ..., đại diện cho db
                 };
                 carts.Add(newCart);
             }
-            builder.HasData(carts);
+            builder.HasData(carts);*/
         });
     }
 

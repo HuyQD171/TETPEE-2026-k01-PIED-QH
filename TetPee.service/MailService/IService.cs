@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace TetPee.service.MailService;
 
 public interface IService

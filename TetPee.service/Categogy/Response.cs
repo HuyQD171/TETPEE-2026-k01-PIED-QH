@@ -1,3 +1,5 @@
+using System;
+
 namespace TetPee.service.Categogy;
 
 public abstract class Response

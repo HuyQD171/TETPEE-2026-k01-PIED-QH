@@ -26,6 +26,8 @@ public class User: BaseEntity<Guid>, IAuditableEntity
     public ICollection<Order>  Orders { get; set; } = new List<Order>();
     //mối qh một nhiều cho ORM nó generate xuống    db
     
+    public Cart? Cart { get; set; }
+    
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset? UpdatedAt { get; set; }//nullable vì chưa update lần nào
     // tách ra những field trong interface để tái sử dụng, 

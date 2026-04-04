@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace TetPee.service.Product;
 
 public class Request

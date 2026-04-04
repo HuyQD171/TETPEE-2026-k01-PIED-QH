@@ -1,0 +1,16 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace TetPee.service.Cart;
+
+public interface IService
+{
+    public Task CreateCart();
+    
+    public Task AddProductToCart(Request.AddProductToCartRequest request);
+    
+    public Task RemoveProductFromCart(Request.RemoveProductFromCartRequest request);
+    
+    public Task<List<Response.ProductResponse>> GetCart();
+}
